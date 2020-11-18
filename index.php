@@ -9,57 +9,42 @@
 // then return the first substring encountered with the longest length.
 // k will range from 1 to 6.
 
+// counts number of unique characters in a given string
+function countUniqueCharacters($str)
+{
+    return strlen(count_chars($str, 3));
+}
+
 function maxSubstring($str)
 {
     // количество уникальных символов - первый знак
     $k = $str[0];
     // валидация
-    if ($k < 1 || $k > 6) return('First char is not number in 1-6 range');
+    if ($k < 1 || $k > 6) return ('First char is not number in 1-6 range');
 
     // строка без первой цифры
     $str = substr($str, 1);
 
-    // без первой цифры
-    $number_unique_chars = strlen(count_chars($str,3));
-    if ($number_unique_chars < $k) return ('Number too big');
-    if ($number_unique_chars == $k) return $str;
 
-    $str_size = strlen($str);
-    $window_start = 0;
-    $max_length = 0;
-    $char_frequency = [];
+    if (countUniqueCharacters($str) < $k) return ('Number too big');
+    if (countUniqueCharacters($str) == $k) return $str;
 
-    # расширим диапазон окна [window_start, window_end]
-    for ($window_end = 0; $window_end < $str_size; $window_end++) {
-        $right_char = $str[$window_end];
-        if (!isset($char_frequency[$right_char])) $char_frequency[$right_char] = 0;
-        $char_frequency[$right_char] += 1;
-        //print_r($char_frequency);
-        # сдвинем левую границу окно до тех пор пока не получим 'k' уникальных символов в char_frequency
-        while (sizeof($char_frequency) > $k) {
-            $left_char = $str[$window_start];
-            //echo "\nLEFT $left_char \n";
-            $char_frequency[$left_char] -= 1;
-            if ($char_frequency[$left_char] == 0) unset($char_frequency[$left_char]);
-            $window_start += 1;  # сдвигаем левую границу окна
-
-            # собираем статистику найденых окон
-            $max_length_new = max($max_length, $window_end - $window_start + 1);
-            //мы нашли больше существующего? $max_length
-            if ($max_length_new > $max_length and !isset($result[$max_length_new])) {
-                $result[$max_length_new] = substr($str, $window_start - 1, $max_length_new);
-                //запоминаем максимальный успех
-                $max_length = $max_length_new;
-                //print_r($result);
+    // переберем подстроку
+    for ($subStrSize = strlen($str); $subStrSize > 0; $subStrSize--) {
+        // выберем ри куда стартовать
+        for ($i = 0; $i <= strlen($str) - $subStrSize; $i++) {
+            $subStr = substr($str, $i, $i + $subStrSize);
+            echo $subStr;
+            if (countUniqueCharacters($subStr) === $k) {
+                return $subStr;
             }
-            //echo "\n max lengh $max_length \n";
         }
     }
-    return $result[$max_length_new];
+
 
 }
 
-if (!isset($_GET['str'])) echo ('No str request');
+if (!isset($_GET['str'])) echo('No str request');
 echo maxSubstring($_GET['str']);
 
 
