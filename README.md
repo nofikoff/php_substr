@@ -10,6 +10,12 @@
  then return the first substring encountered with the longest length.
  k will range from 1 to 6.
 
+// Input:"3aabacbebebe"
+// Output:"cbebebe"
+
+// Input:"2aabbcbbbadef"
+// Output:"bbcbbb"
+
 
 # Демо здесь
 Входящая строка через GET параметр str

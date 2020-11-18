@@ -1,4 +1,5 @@
 <?php
+
 // take the str parameter being passed and find the longest substring
 // that contains k unique characters, where k will be the first character from the string.
 // The substring will start from the second position in the string because
@@ -8,6 +9,12 @@
 // because it is the longest substring. If there are multiple longest substrings,
 // then return the first substring encountered with the longest length.
 // k will range from 1 to 6.
+
+// Input:"3aabacbebebe"
+// Output:"cbebebe"
+
+// Input:"2aabbcbbbadef"
+// Output:"bbcbbb"
 
 
 function countUniqueCharacters($str)
@@ -25,7 +32,6 @@ function maxSubstring($str)
     // строка без первой цифры
     $str = substr($str, 1);
 
-
     if (countUniqueCharacters($str) < $k) return ('Number too big');
     if (countUniqueCharacters($str) == $k) return $str;
 
@@ -34,14 +40,12 @@ function maxSubstring($str)
         // выберем ри куда стартовать
         for ($i = 0; $i <= strlen($str) - $subStrSize; $i++) {
             $subStr = substr($str, $i, $i + $subStrSize);
-            echo $subStr;
-            if (countUniqueCharacters($subStr) === $k) {
+            //echo $subStr;
+            if (countUniqueCharacters($subStr) == $k) {
                 return $subStr;
             }
         }
     }
-
-
 }
 
 if (!isset($_GET['str'])) echo('No str request');
