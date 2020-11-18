@@ -1,4 +1,4 @@
-# Задание 
+# Задание на собеседование уровень Средний
 
  take the str parameter being passed and find the longest substring
  that contains k unique characters, where k will be the first character from the string.
