@@ -14,14 +14,14 @@ function maxSubstring($str)
     // количество уникальных символов - первый знак
     $k = $str[0];
     // валидация
-    if ($k < 1 || $k > 6) die('First char is not number in 1-6 range');
+    if ($k < 1 || $k > 6) return('First char is not number in 1-6 range');
 
     // строка без первой цифры
     $str = substr($str, 1);
 
     // без первой цифры
     $number_unique_chars = strlen(count_chars($str,3));
-    if ($number_unique_chars < $k) die('Number too big');
+    if ($number_unique_chars < $k) return ('Number too big');
     if ($number_unique_chars == $k) return $str;
 
     $str_size = strlen($str);
@@ -59,7 +59,7 @@ function maxSubstring($str)
 
 }
 
-if (!isset($_GET['str'])) die('No str request');
+if (!isset($_GET['str'])) echo ('No str request');
 echo maxSubstring($_GET['str']);
 
 
