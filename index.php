@@ -9,7 +9,7 @@
 // then return the first substring encountered with the longest length.
 // k will range from 1 to 6.
 
-// counts number of unique characters in a given string
+
 function countUniqueCharacters($str)
 {
     return strlen(count_chars($str, 3));
