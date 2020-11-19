@@ -20,7 +20,7 @@
 # Демо здесь
 Входящая строка через GET параметр str
 
-http://testftp.protection.com.ua/substring/?str=2hgwgdgwwwwwwwwg
+http://testftp.protection.com.ua/substring/?str=2hgwgdgwwwwwwwwge
 
 
 
