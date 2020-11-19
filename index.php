@@ -27,48 +27,50 @@ function maxSubstring($str)
     // строка без первой цифры
     $str = substr($str, 1);
 
-    // без первой цифры
-    $number_unique_chars = strlen(count_chars($str,3));
+    // валидация
+    $number_unique_chars = strlen(count_chars($str, 3));
     if ($number_unique_chars < $k) die('Number too big');
     if ($number_unique_chars == $k) return $str;
 
+    //длина строки
     $str_size = strlen($str);
+    // левая граница
     $window_start = 0;
-    $max_length = 0;
+    // хэш таблица частотности уникальных символов символ => частота в текущей подстроке
     $char_frequency = [];
-
+    //ответ
+    $result = '';
     # расширим диапазон окна [window_start, window_end]
     for ($window_end = 0; $window_end < $str_size; $window_end++) {
+
+        //последний символ в окне
         $right_char = $str[$window_end];
+        // инит частотности последнего символа в окне
         if (!isset($char_frequency[$right_char])) $char_frequency[$right_char] = 0;
-        $char_frequency[$right_char] += 1;
-        //print_r($char_frequency);
+        $char_frequency[$right_char]++;
+
         # сдвинем левую границу окно до тех пор пока не получим 'k' уникальных символов в char_frequency
         while (sizeof($char_frequency) > $k) {
+            //левый символ в окне
             $left_char = $str[$window_start];
-            //echo "\nLEFT $left_char \n";
-            $char_frequency[$left_char] -= 1;
-            if ($char_frequency[$left_char] == 0) unset($char_frequency[$left_char]);
-            $window_start += 1;  # сдвигаем левую границу окна
+            $char_frequency[$left_char]--;
 
-            # собираем статистику найденых окон
-            $max_length_new = max($max_length, $window_end - $window_start + 1);
-            //мы нашли больше существующего? $max_length
-            if ($max_length_new > $max_length and !isset($result[$max_length_new])) {
-                $result[$max_length_new] = substr($str, $window_start - 1, $max_length_new);
-                //запоминаем максимальный успех
-                $max_length = $max_length_new;
-                //print_r($result);
+            //если частотность левого символа в окне стала нулевая - удалям тако символ
+            if ($char_frequency[$left_char] == 0) unset($char_frequency[$left_char]);
+            //сдвигаем левую границу окна
+            $window_start++;
+
+            if (strlen($result) < ($window_end - $window_start + 1)) {
+                $result= substr($str, $window_start - 1, ($window_end - $window_start + 1));
             }
-            //echo "\n max lengh $max_length \n";
         }
     }
-    return $result[$max_length_new];
+    return $result;
 
 }
 
 if (!isset($_GET['str'])) die('No str request');
-echo maxSubstring($_GET['str']);
+echo "RESULT: ".maxSubstring($_GET['str']);
 
 
 
