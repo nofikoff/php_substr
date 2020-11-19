@@ -17,6 +17,7 @@
 // Output:"bbcbbb"
 
 
+// брут форс - двигем окошко подстроки
 function maxSubstring($str)
 {
     // количество уникальных символов - первый знак
@@ -40,28 +41,31 @@ function maxSubstring($str)
     $char_frequency = [];
     //ответ
     $result = '';
-    # расширим диапазон окна [window_start, window_end]
+    // двигаем окошко [window_start, window_end]
+    // правая граница
     for ($window_end = 0; $window_end < $str_size; $window_end++) {
-
         //последний символ в окне
         $right_char = $str[$window_end];
         // инит частотности последнего символа в окне
         if (!isset($char_frequency[$right_char])) $char_frequency[$right_char] = 0;
         $char_frequency[$right_char]++;
 
-        # сдвинем левую границу окно до тех пор пока не получим 'k' уникальных символов в char_frequency
+        // если в результате сдвига - у нас есть достаточное количество уникальных символов в окошке?
+        // заходим сюда
         while (sizeof($char_frequency) > $k) {
-            //левый символ в окне
+            // сдвинем левую границу вправа до тех пор пока не получим 'k' уникальных символов в char_frequency
+            // левый символ в окне
             $left_char = $str[$window_start];
             $char_frequency[$left_char]--;
 
-            //если частотность левого символа в окне стала нулевая - удалям тако символ
+            //если частотность левого символа в окне стала нулевая - удалям такой символ из хэш таблицы
             if ($char_frequency[$left_char] == 0) unset($char_frequency[$left_char]);
             //сдвигаем левую границу окна
             $window_start++;
 
+            //найденный резалт больше предыдущего?
             if (strlen($result) < ($window_end - $window_start + 1)) {
-                $result= substr($str, $window_start - 1, ($window_end - $window_start + 1));
+                $result = substr($str, $window_start - 1, ($window_end - $window_start + 1));
             }
         }
     }
@@ -70,7 +74,7 @@ function maxSubstring($str)
 }
 
 if (!isset($_GET['str'])) die('No str request');
-echo "RESULT: ".maxSubstring($_GET['str']);
+echo "RESULT: " . maxSubstring($_GET['str']);
 
 
 
