@@ -16,6 +16,9 @@
 // Input:"2aabbcbbbadef"
 // Output:"bbcbbb"
 
+// Input:"2hgwgdgwwwwwwwwwg"
+// Output:"gwwwwwwwwwg"
+
 
 // брут форс - двигем окошко подстроки
 function maxSubstring($str)
@@ -43,7 +46,7 @@ function maxSubstring($str)
     $result = '';
     // двигаем окошко [window_start, window_end]
     // правая граница
-    for ($window_end = 0; $window_end < $str_size; $window_end++) {
+    for ($window_end = 0; $window_end <= $str_size; $window_end++) {
         //последний символ в окне
         $right_char = $str[$window_end];
         // инит частотности последнего символа в окне
