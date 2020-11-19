@@ -1,4 +1,4 @@
-# Задание 
+# Задание
 
  take the str parameter being passed and find the longest substring
  that contains k unique characters, where k will be the first character from the string.
@@ -20,7 +20,7 @@
 # Демо здесь
 Входящая строка через GET параметр str
 
-http://testftp.protection.com.ua/substring/?str=2hggdgg
+http://testftp.protection.com.ua/substring/?str=2hgwgdgwwwwwwwwg
 
 
 
